@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "Paciente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
+    @NamedQuery(name = "Paciente.recuperaListaDePacientes", query = "SELECT p FROM Paciente p"),
     @NamedQuery(name = "Paciente.findByIdPaciente", query = "SELECT p FROM Paciente p WHERE p.idPaciente = :idPaciente"),
     @NamedQuery(name = "Paciente.findByNome", query = "SELECT p FROM Paciente p WHERE p.nome = :nome"),
     @NamedQuery(name = "Paciente.findByRaca", query = "SELECT p FROM Paciente p WHERE p.raca = :raca")})
@@ -50,13 +50,13 @@ public class Paciente implements Serializable {
     @Basic(optional = false)
     @Column(name = "raca")
     private String raca;
-    @JoinColumn(name = "especie", referencedColumnName = "idEspecie")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Especie especie;
     @JoinColumn(name = "dono", referencedColumnName = "idDono")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Dono dono;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", fetch = FetchType.LAZY)
+    @JoinColumn(name = "especie", referencedColumnName = "idEspecie")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Especie especie;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", fetch = FetchType.EAGER)
     private List<Consulta> consultaList;
 
     public Paciente() {
@@ -96,20 +96,20 @@ public class Paciente implements Serializable {
         this.raca = raca;
     }
 
-    public Especie getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(Especie especie) {
-        this.especie = especie;
-    }
-
     public Dono getDono() {
         return dono;
     }
 
     public void setDono(Dono dono) {
         this.dono = dono;
+    }
+
+    public Especie getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(Especie especie) {
+        this.especie = especie;
     }
 
     @XmlTransient

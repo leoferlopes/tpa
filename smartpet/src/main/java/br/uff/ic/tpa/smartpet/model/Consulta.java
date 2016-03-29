@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "Consulta")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Consulta.findAll", query = "SELECT c FROM Consulta c"),
+    @NamedQuery(name = "Consulta.recuperaListaDeConsultas", query = "SELECT c FROM Consulta c"),
     @NamedQuery(name = "Consulta.findByCodigoConsulta", query = "SELECT c FROM Consulta c WHERE c.codigoConsulta = :codigoConsulta"),
     @NamedQuery(name = "Consulta.findByDataHora", query = "SELECT c FROM Consulta c WHERE c.dataHora = :dataHora"),
     @NamedQuery(name = "Consulta.findByPreco", query = "SELECT c FROM Consulta c WHERE c.preco = :preco")})
@@ -53,12 +53,12 @@ public class Consulta implements Serializable {
     @Lob
     @Column(name = "receita")
     private String receita;
-    @JoinColumn(name = "veterinario", referencedColumnName = "idVeterinario")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Veterinario veterinario;
     @JoinColumn(name = "paciente", referencedColumnName = "idPaciente")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Paciente paciente;
+    @JoinColumn(name = "veterinario", referencedColumnName = "idVeterinario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Veterinario veterinario;
 
     public Consulta() {
     }
@@ -104,20 +104,20 @@ public class Consulta implements Serializable {
         this.receita = receita;
     }
 
-    public Veterinario getVeterinario() {
-        return veterinario;
-    }
-
-    public void setVeterinario(Veterinario veterinario) {
-        this.veterinario = veterinario;
-    }
-
     public Paciente getPaciente() {
         return paciente;
     }
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public Veterinario getVeterinario() {
+        return veterinario;
+    }
+
+    public void setVeterinario(Veterinario veterinario) {
+        this.veterinario = veterinario;
     }
 
     @Override

@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "Especie")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Especie.findAll", query = "SELECT e FROM Especie e"),
+    @NamedQuery(name = "Especie.recuperaListaDeEspecies", query = "SELECT e FROM Especie e"),
     @NamedQuery(name = "Especie.findByIdEspecie", query = "SELECT e FROM Especie e WHERE e.idEspecie = :idEspecie"),
     @NamedQuery(name = "Especie.findByNome", query = "SELECT e FROM Especie e WHERE e.nome = :nome")})
 public class Especie implements Serializable {
@@ -44,7 +44,7 @@ public class Especie implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especie", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especie", fetch = FetchType.EAGER)
     private List<Paciente> pacienteList;
 
     public Especie() {
