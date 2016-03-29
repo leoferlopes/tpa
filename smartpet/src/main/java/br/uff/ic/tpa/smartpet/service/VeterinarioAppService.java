@@ -6,6 +6,7 @@
 package br.uff.ic.tpa.smartpet.service;
 
 import br.uff.ic.tpa.smartpet.dao.VeterinarioDAO;
+import br.uff.ic.tpa.smartpet.dao.impl.VeterinarioDAOImpl;
 import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
 import br.uff.ic.tpa.smartpet.model.Veterinario;
 import java.util.List;
@@ -23,6 +24,7 @@ public class VeterinarioAppService {
     @Autowired
     public void setVeterinarioDAO(VeterinarioDAO veterinarioDAO) {
         this.veterinarioDAO = veterinarioDAO;
+        
     }
 
     public Integer inclui(Veterinario veterinario) {

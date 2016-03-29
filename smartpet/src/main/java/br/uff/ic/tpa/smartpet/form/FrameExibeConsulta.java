@@ -5,7 +5,15 @@
  */
 package br.uff.ic.tpa.smartpet.form;
 
+import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
+import br.uff.ic.tpa.smartpet.model.Consulta;
+import br.uff.ic.tpa.smartpet.service.ConsultaAppService;
+import br.uff.ic.tpa.smartpet.util.Util;
 import java.awt.event.WindowEvent;
+import java.util.Date;
+import java.util.List;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -23,7 +31,7 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
     public void setPai(FramePrincipal pai){
         this.pai = pai;
     }
-
+    ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +48,7 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -50,11 +59,22 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
         jLabel1.setText("ID Consulta");
 
         jButton1.setText("Pesquisar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Todos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
+        jTextArea1.setRows(10);
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton3.setText("Voltar");
@@ -63,6 +83,10 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,14 +98,16 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton1)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,8 +123,10 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
                         .addComponent(jButton2)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -116,6 +144,60 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
         pai.setEnabled(true);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_jButton3ActionPerformed
+    private boolean checaPesquisa(){
+        if(jTextField1.getText().trim().length() == 0){
+            jLabel2.setText("CAMPO OBRIGATÓRIO");
+            jLabel2.setEnabled(true);
+            return false;
+        }
+        return true;
+    }
+    private String criaString(Consulta consulta){
+        String resultado;
+        resultado = "COD = " + consulta.getCodigoConsulta().toString() + " ||| PACIENTE = " + consulta.getPaciente().getNome() +
+                " ||| VETERINARIO = " + consulta.getVeterinario().getNome() + " ||| DATA = " + consulta.getDataHora().toString() +
+                " ||| PREÇO = " + consulta.getPreco().toString() + " ||| RECEITA = " + consulta.getReceita() + "\n";
+        return resultado;
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean efetuou = false;
+        Consulta consulta = new Consulta();
+        
+        if(checaPesquisa()){
+            ConsultaAppService consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService"); 
+            try{                
+                consulta = consultaAppService.recupera(Integer.parseInt(jTextField1.getText()));
+                efetuou = true;
+            } catch (ObjetoNaoEncontradoException e){
+                jLabel2.setText("CONSULTA INEXISTENTE");
+                jLabel2.setEnabled(true);
+                efetuou = false;
+            }
+        }
+        if(efetuou){
+            jTextArea1.setText("");
+            jTextArea1.append(criaString(consulta));
+            jLabel2.setText("CONSULTA REALIZADA");
+            jLabel2.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        boolean efetuou = false;
+        ConsultaAppService consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");  
+        List<Consulta> consultas = consultaAppService.recuperaConsultas();
+        jTextArea1.setText("");
+        for (int i = 0; i < consultas.size(); i++) {
+            jTextArea1.append(criaString(consultas.get(i)));               
+        }
+        efetuou = true;
+        if(efetuou){
+            jLabel2.setText("CONSULTA REALIZADA");
+            jLabel2.setEnabled(false);
+        }
+      
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,6 +239,7 @@ public class FrameExibeConsulta extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;

@@ -2,6 +2,7 @@ package br.uff.ic.tpa.smartpet;
 
 import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
 import br.uff.ic.tpa.smartpet.form.*;
+import br.uff.ic.tpa.smartpet.model.Consulta;
 import br.uff.ic.tpa.smartpet.service.*;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -17,7 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void _main(String[] args) {
         FramePrincipal principal = new FramePrincipal();
         principal.setFocusableWindowState(true);
         principal.setVisible(true);
@@ -26,7 +27,7 @@ public class Main {
 //            System.out.println("teste");
     }
 
-    public static void _main(String[] args) {
+    public static void main(String[] args) {
         ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
         ConsultaAppService consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");
@@ -34,8 +35,23 @@ public class Main {
         EspecieAppService especieAppService = (EspecieAppService) fabrica.getBean("especieAppService");
         PacienteAppService pacienteAppService = (PacienteAppService) fabrica.getBean("pacienteAppService");
         VeterinarioAppService veterinarioAppService = (VeterinarioAppService) fabrica.getBean("veterinarioAppService");
+        Consulta consulta = new Consulta();
+        try{
+            consulta = consultaAppService.recupera(5);
+            System.out.println("!!!!!!!!!!!!!!!!" + consulta.getDataHora().toString());
+        } catch (ObjetoNaoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
+        
+        try{
+            consultaAppService.exclui(consulta);
+        } catch (ObjetoNaoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
+        
+        
 
-        Gson gson = new GsonBuilder()
+        /*Gson gson = new GsonBuilder()
                 .setExclusionStrategies(new ExclusionStrategy() {
                     @Override
                     public boolean shouldSkipClass(Class<?> c) {
@@ -54,7 +70,7 @@ public class Main {
             System.out.println(json);
         } catch (ObjetoNaoEncontradoException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 }

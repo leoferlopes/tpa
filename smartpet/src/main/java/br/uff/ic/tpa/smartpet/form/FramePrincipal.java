@@ -17,7 +17,7 @@ public class FramePrincipal extends javax.swing.JFrame {
      * Creates new form FramePrincipal
      */
     public FramePrincipal() {
-        setUndecorated(true);
+
         initComponents();
     }
 
@@ -38,8 +38,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -79,25 +79,39 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Edição");
 
-        jMenuItem4.setText("Adicionar Veterinário");
+        jMenuItem4.setText("Editar Veterinário");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem4);
 
-        jMenuItem5.setText("Adicionar Paciente");
+        jMenuItem5.setText("Editar Paciente");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu4);
-
-        jMenu1.setText("Sair");
-
-        jMenuItem2.setText("Sair do Programa");
+        jMenuItem2.setText("Editar Dono");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu4.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem7.setText("Editar Espécie");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -115,10 +129,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         FrameExibeConsulta frame = new FrameExibeConsulta();
         frame.setPai(this);
@@ -134,6 +144,38 @@ public class FramePrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        FrameAdcVeterinario frame = new FrameAdcVeterinario();
+        frame.setPai(this);
+        frame.setLocation(this.getX() + 10,this.getY() + 10);
+        frame.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        FrameAdcPaciente frame = new FrameAdcPaciente();
+        frame.setPai(this);
+        frame.setLocation(this.getX() + 10,this.getY() + 10);
+        frame.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrameAdcDono frame = new FrameAdcDono();
+        frame.setPai(this);
+        frame.setLocation(this.getX() + 10,this.getY() + 10);
+        frame.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        FrameAdcEspecie frame = new FrameAdcEspecie();
+        frame.setPai(this);
+        frame.setLocation(this.getX() + 10,this.getY() + 10);
+        frame.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,7 +215,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -183,5 +224,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }

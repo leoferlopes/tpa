@@ -5,7 +5,19 @@
  */
 package br.uff.ic.tpa.smartpet.form;
 
+import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
+import br.uff.ic.tpa.smartpet.model.Consulta;
+import static br.uff.ic.tpa.smartpet.model.Consulta_.dataHora;
+import br.uff.ic.tpa.smartpet.model.Paciente;
+import br.uff.ic.tpa.smartpet.model.Veterinario;
+import br.uff.ic.tpa.smartpet.service.ConsultaAppService;
+import br.uff.ic.tpa.smartpet.service.PacienteAppService;
+import br.uff.ic.tpa.smartpet.service.VeterinarioAppService;
+import br.uff.ic.tpa.smartpet.util.Util;
 import java.awt.event.WindowEvent;
+import java.util.Date;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -23,7 +35,7 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
     public void setPai(FramePrincipal pai){
         this.pai = pai;
     }
-
+    ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,7 +57,6 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
@@ -60,7 +71,6 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -68,6 +78,7 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jTextField13 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -75,7 +86,7 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setPreferredSize(new java.awt.Dimension(500, 330));
 
-        jButton1.setText("Voltar");
+        jButton1.setText("VOLTAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -115,10 +126,13 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
 
         jTextField5.setEnabled(false);
 
-        jButton2.setText("Alterar");
+        jButton2.setText("EDITAR");
         jButton2.setEnabled(false);
-
-        jTextField6.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTextField7.setEnabled(false);
 
@@ -128,13 +142,23 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
 
         jTextField10.setEnabled(false);
 
-        jButton3.setText("Marcar");
+        jButton3.setText("MARCAR");
         jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextField11.setEnabled(false);
 
-        jButton4.setText("Desmarcar");
+        jButton4.setText("DESMARCAR");
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("ID");
 
@@ -150,8 +174,6 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
 
         jLabel8.setText("PACIENTE");
 
-        jLabel9.setText("ID");
-
         jLabel10.setText("DATA");
 
         jLabel11.setText("PREÇO");
@@ -165,6 +187,10 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jLabel14.setText("PACIENTE");
 
         jLabel15.setText("ID");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel9.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,22 +226,19 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jRadioButton3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2)))
-                                .addGap(23, 23, 23))
+                                        .addComponent(jRadioButton2))))
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(26, 26, 26)
+                                .addGap(37, 37, 37)
                                 .addComponent(jLabel10))
                             .addComponent(jLabel15))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 23, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jButton1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(37, 37, 37)
                                 .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +269,9 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)))
+                                .addComponent(jButton4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9)))
                         .addContainerGap(16, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -279,7 +304,6 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12)
@@ -287,7 +311,6 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,7 +323,8 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(jLabel9))
                 .addGap(21, 21, 21)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -327,7 +351,7 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jTextField4.setEnabled(true);
         jTextField5.setEnabled(true);
         jTextField12.setEnabled(true);
-        jTextField6.setEnabled(false);
+        
         jTextField7.setEnabled(false);
         jTextField8.setEnabled(false);
         jTextField9.setEnabled(false);
@@ -351,7 +375,7 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jTextField4.setEnabled(false);
         jTextField5.setEnabled(false);
         jTextField12.setEnabled(false);
-        jTextField6.setEnabled(false);
+        
         jTextField7.setEnabled(false);
         jTextField8.setEnabled(false);
         jTextField9.setEnabled(false);
@@ -367,7 +391,7 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jButton3.setEnabled(true);
         jButton2.setEnabled(false);
         jButton4.setEnabled(false);
-        jTextField6.setEnabled(true);
+        
         jTextField7.setEnabled(true);
         jTextField8.setEnabled(true);
         jTextField9.setEnabled(true);
@@ -381,6 +405,178 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
         jTextField12.setEnabled(false);
         jTextField11.setEnabled(false);
     }//GEN-LAST:event_jRadioButton3ActionPerformed
+    Veterinario veterinario;
+    Paciente paciente;
+    ConsultaAppService consultaAppService;
+    private boolean checaEdicao(){
+        if(jTextField1.getText().trim().length() == 0 || jTextField2.getText().trim().length() == 0 || jTextField3.getText().trim().length() == 0
+                    || jTextField4.getText().trim().length() == 0 || jTextField5.getText().trim().length() == 0 || jTextField12.getText().trim().length() == 0){
+            jLabel9.setText("CAMPOS OBRIGATÓRIOS");
+            jLabel9.setEnabled(true);
+            return false;
+        }
+        if(jTextField1.getText().trim().length() != 10){
+            jLabel9.setText("DATA INVALIDA");
+            jLabel9.setEnabled(true);
+            return false;
+        } else {
+            try{
+                boolean ok = Util.dataValida(jTextField1.getText());
+                if(ok){
+                    jLabel9.setText("DATA INVALIDA");
+                    jLabel9.setEnabled(true);
+                    return false;
+                }
+            } catch (IllegalArgumentException e){
+                jLabel9.setText("DATA INVALIDA");
+                jLabel9.setEnabled(true);
+                return false;
+            }
+            PacienteAppService pacienteAppService = (PacienteAppService) fabrica.getBean("pacienteAppService");
+            VeterinarioAppService veterinarioAppService = (VeterinarioAppService) fabrica.getBean("veterinarioAppService");
+            try{
+                veterinario = veterinarioAppService.recupera(Integer.parseInt(jTextField5.getText()));
+            } catch (ObjetoNaoEncontradoException e){
+                jLabel9.setText(e.getMessage());
+                jLabel9.setEnabled(true);
+                return false;
+            }
+            try{
+                paciente = pacienteAppService.recupera(Integer.parseInt(jTextField12.getText()));
+            } catch (ObjetoNaoEncontradoException e){
+                jLabel9.setText(e.getMessage());
+                jLabel9.setEnabled(true);
+                return false;
+            } 
+        }
+        
+
+        return true;
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        boolean editou = false;
+        if(checaEdicao()){
+            consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");
+            Consulta conEdit = new Consulta();
+            conEdit.setPaciente(paciente);
+            conEdit.setVeterinario(veterinario);
+            conEdit.setReceita(jTextField4.getText());
+            conEdit.setPreco(Integer.parseInt(jTextField3.getText()));
+            Date data = Util.strToDate(jTextField1.getText());
+            conEdit.setDataHora(data);
+            conEdit.setCodigoConsulta(Integer.parseInt(jTextField2.getText()));
+            try{
+                consultaAppService.altera(conEdit);
+                editou = true;
+            } catch( ObjetoNaoEncontradoException e){
+                jLabel9.setText(e.getMessage());
+                jLabel9.setEnabled(true);
+                editou = false;
+            }
+        }
+        if(editou){
+            jLabel9.setText("EDIÇÃO REALIZADA");
+            jLabel9.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+    private boolean marcarValido(){
+     if(jTextField7.getText().trim().length() == 0 || jTextField8.getText().trim().length() == 0 || jTextField9.getText().trim().length() == 0
+                    || jTextField10.getText().trim().length() == 0 || jTextField13.getText().trim().length() == 0){
+            jLabel9.setText("CAMPOS OBRIGATÓRIOS");
+            jLabel9.setEnabled(true);
+            return false;
+        }
+        if(jTextField7.getText().trim().length() != 10){
+            jLabel9.setText("DATA INVALIDA");
+            jLabel9.setEnabled(true);
+            return false;
+        } else {
+            try{
+                boolean ok = Util.dataValida(jTextField7.getText());
+                if(ok){
+                    jLabel9.setText("DATA INVALIDA");
+                    jLabel9.setEnabled(true);
+                    return false;
+                }
+            } catch (IllegalArgumentException e){
+                jLabel9.setText("DATA INVALIDA");
+                jLabel9.setEnabled(true);
+                return false;
+            }
+            PacienteAppService pacienteAppService = (PacienteAppService) fabrica.getBean("pacienteAppService");
+            VeterinarioAppService veterinarioAppService = (VeterinarioAppService) fabrica.getBean("veterinarioAppService");
+            try{
+                veterinario = veterinarioAppService.recupera(Integer.parseInt(jTextField10.getText()));
+            } catch (ObjetoNaoEncontradoException e){
+                jLabel9.setText(e.getMessage());
+                jLabel9.setEnabled(true);
+                return false;
+            }
+            try{
+                paciente = pacienteAppService.recupera(Integer.parseInt(jTextField13.getText()));
+            } catch (ObjetoNaoEncontradoException e){
+                jLabel9.setText(e.getMessage());
+                jLabel9.setEnabled(true);
+                return false;
+            } 
+        }
+        
+
+        return true;   
+    }
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        boolean marcou = false;
+        if(marcarValido()){
+            consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");
+            Consulta conEdit = new Consulta();
+            conEdit.setPaciente(paciente);
+            conEdit.setVeterinario(veterinario);
+            conEdit.setReceita(jTextField9.getText());
+            conEdit.setPreco(Integer.parseInt(jTextField8.getText()));
+            Date data = Util.strToDate(jTextField7.getText());
+            conEdit.setDataHora(data);
+            consultaAppService.inclui(conEdit);
+            marcou = true;  
+        }
+        if(marcou){
+            jLabel9.setText("CONSULTA MARCADA");
+            jLabel9.setEnabled(false);    
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+    private boolean checaExclusao(){
+        if(jTextField11.getText().trim().length() == 0){
+            jLabel9.setText("CAMPOS OBRIGATÓRIOS");
+            jLabel9.setEnabled(true);
+            return false;    
+        }
+        return true;
+    }
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        boolean desmarcou = false;
+        if(checaExclusao()){
+            Consulta conEdit;
+            consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");
+            try{
+                conEdit = consultaAppService.recupera(Integer.parseInt(jTextField11.getText()));
+                try{
+                    consultaAppService.exclui(conEdit);
+                    desmarcou = true;
+
+                } catch (ObjetoNaoEncontradoException e){
+                    jLabel9.setText(e.getMessage());
+                    jLabel9.setEnabled(true);
+                }
+            } catch (ObjetoNaoEncontradoException e){
+                jLabel9.setText(e.getMessage());
+                jLabel9.setEnabled(true);
+            }
+    
+        }
+        if(desmarcou){
+            jLabel9.setText("CONSULTA DESMARCADA");
+            jLabel9.setEnabled(false);    
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -450,7 +646,6 @@ public class FrameEditarConsulta extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
