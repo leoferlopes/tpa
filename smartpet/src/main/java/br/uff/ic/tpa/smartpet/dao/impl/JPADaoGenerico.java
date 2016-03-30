@@ -167,6 +167,25 @@ public class JPADaoGenerico<T, PK> implements DaoGenerico<T, PK> {
     }
 
     @SuppressWarnings("unchecked")
+    public final Long buscaListaCount(Method metodo,
+            Object[] argumentos) {
+        try {
+            String nomeDaBusca = getNomeDaBuscaPeloMetodo(metodo);
+            Query namedQuery = em.createNamedQuery(nomeDaBusca);
+
+            if (argumentos != null) {
+                for (int i = 0; i < argumentos.length; i++) {
+                    Object arg = argumentos[i];
+                    namedQuery.setParameter(i + 1, arg); // Parâmetros de buscas são 1-based.
+                }
+            }
+            return (Long) namedQuery.getSingleResult();
+        } catch (RuntimeException e) {
+            throw new InfraestruturaException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public final List<T> buscaPagina(Method metodo,
             Object[] argumentos) {
         try {

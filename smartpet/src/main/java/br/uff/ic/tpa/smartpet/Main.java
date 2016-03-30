@@ -18,7 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void _main(String[] args) {
         FramePrincipal principal = new FramePrincipal();
         principal.setFocusableWindowState(true);
         principal.setVisible(true);
@@ -27,7 +27,7 @@ public class Main {
 //            System.out.println("teste");
     }
 
-    public static void _main(String[] args) {
+    public static void main(String[] args) {
         ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
         ConsultaAppService consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");
@@ -51,9 +51,10 @@ public class Main {
                 .serializeNulls()
                 .create();
         try {
-            List<Dono> list = donoAppService.recuperaPaginaDeDonos(1, 2);
+            List<Consulta> list = consultaAppService.recuperaPaginaDeConsultas(2, 6);
             String json = gson.toJson(list);
             System.out.println(json);
+            System.out.println("count: " + consultaAppService.contaListaDeConsultas());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

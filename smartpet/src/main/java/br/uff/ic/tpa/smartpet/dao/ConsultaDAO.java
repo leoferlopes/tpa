@@ -5,6 +5,7 @@
  */
 package br.uff.ic.tpa.smartpet.dao;
 
+import br.uff.ic.tpa.smartpet.annotation.ContaLista;
 import br.uff.ic.tpa.smartpet.annotation.RecuperaLista;
 import br.uff.ic.tpa.smartpet.annotation.RecuperaPagina;
 import br.uff.ic.tpa.smartpet.model.Consulta;
@@ -21,5 +22,8 @@ public interface ConsultaDAO extends DaoGenerico<Consulta, Integer> {
 
     @RecuperaPagina
     List<Consulta> recuperaPaginaDeConsultas(Integer startPosition, Integer length);
+
+    @ContaLista
+    Long contaListaDeConsultas();
 
 }
