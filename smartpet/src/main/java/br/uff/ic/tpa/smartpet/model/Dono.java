@@ -64,7 +64,7 @@ public class Dono implements Serializable {
     @Basic(optional = false)
     @Column(name = "endereco")
     private String endereco;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dono", fetch = FetchType.EAGER)
+    @OneToMany(/*cascade = CascadeType.ALL, */mappedBy = "dono", fetch = FetchType.EAGER)
     private List<Paciente> pacienteList;
 
     public Dono() {

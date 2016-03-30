@@ -44,7 +44,7 @@ public class Especie implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especie", fetch = FetchType.EAGER)
+    @OneToMany(/*cascade = CascadeType.ALL, */mappedBy = "especie", fetch = FetchType.EAGER)
     private List<Paciente> pacienteList;
 
     public Especie() {

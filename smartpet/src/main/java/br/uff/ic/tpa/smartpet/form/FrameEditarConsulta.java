@@ -7,7 +7,7 @@ package br.uff.ic.tpa.smartpet.form;
 
 import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
 import br.uff.ic.tpa.smartpet.model.Consulta;
-import static br.uff.ic.tpa.smartpet.model.Consulta_.dataHora;
+//import static br.uff.ic.tpa.smartpet.model.Consulta_.dataHora;
 import br.uff.ic.tpa.smartpet.model.Paciente;
 import br.uff.ic.tpa.smartpet.model.Veterinario;
 import br.uff.ic.tpa.smartpet.service.ConsultaAppService;

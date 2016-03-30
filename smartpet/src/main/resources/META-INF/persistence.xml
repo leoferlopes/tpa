@@ -8,19 +8,11 @@
     <class>br.uff.ic.tpa.smartpet.model.Especie</class>
     <class>br.uff.ic.tpa.smartpet.model.Veterinario</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/smartpet?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ironman.liga:3306/smartpet?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="admin"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="cassinho"/>
+      <property name="javax.persistence.jdbc.password" value="admin"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
     </properties>
   </persistence-unit>
 </persistence>
-
-
-
-
-
-
-
-

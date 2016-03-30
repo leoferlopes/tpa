@@ -12,7 +12,7 @@ import br.uff.ic.tpa.smartpet.model.Dono;
  *
  * @author leonardo
  */
-public class DonoDAOImpl extends JPADaoGenerico<Dono, Integer> implements DonoDAO{
+public abstract class DonoDAOImpl extends JPADaoGenerico<Dono, Integer> implements DonoDAO{
 
     public DonoDAOImpl() {
         super(Dono.class);

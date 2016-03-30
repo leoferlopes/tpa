@@ -8,6 +8,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.List;
 import javax.persistence.OneToMany;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -35,23 +36,7 @@ public class Main {
         EspecieAppService especieAppService = (EspecieAppService) fabrica.getBean("especieAppService");
         PacienteAppService pacienteAppService = (PacienteAppService) fabrica.getBean("pacienteAppService");
         VeterinarioAppService veterinarioAppService = (VeterinarioAppService) fabrica.getBean("veterinarioAppService");
-        Consulta consulta = new Consulta();
-        try{
-            consulta = consultaAppService.recupera(5);
-            System.out.println("!!!!!!!!!!!!!!!!" + consulta.getDataHora().toString());
-        } catch (ObjetoNaoEncontradoException e){
-            System.out.println(e.getMessage());
-        }
-        
-        try{
-            consultaAppService.exclui(consulta);
-        } catch (ObjetoNaoEncontradoException e){
-            System.out.println(e.getMessage());
-        }
-        
-        
-
-        /*Gson gson = new GsonBuilder()
+        Gson gson = new GsonBuilder()
                 .setExclusionStrategies(new ExclusionStrategy() {
                     @Override
                     public boolean shouldSkipClass(Class<?> c) {
@@ -66,11 +51,16 @@ public class Main {
                 .serializeNulls()
                 .create();
         try {
-            String json = gson.toJson(consultaAppService.recupera(1));
-            System.out.println(json);
+            //List<Consulta> consultas = consultaAppService.recuperaConsultas();
+            //String json = gson.toJson(consultas.get(0));
+            //System.out.println(json);
+            pacienteAppService.exclui(pacienteAppService.recupera(2));
+            //consultaAppService.exclui(consultaAppService.recupera(1));
+            //json = gson.toJson(c);
+            //System.out.println(json);
         } catch (ObjetoNaoEncontradoException e) {
             e.printStackTrace();
-        }*/
-
+        }
+        System.exit(0);
     }
 }

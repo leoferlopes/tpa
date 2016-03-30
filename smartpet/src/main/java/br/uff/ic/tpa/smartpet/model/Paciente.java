@@ -56,7 +56,7 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "especie", referencedColumnName = "idEspecie")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Especie especie;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", fetch = FetchType.EAGER)
+    @OneToMany(/*cascade = CascadeType.ALL,*/ mappedBy = "paciente", fetch = FetchType.EAGER)
     private List<Consulta> consultaList;
 
     public Paciente() {
