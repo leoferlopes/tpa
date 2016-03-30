@@ -9,6 +9,7 @@ package br.uff.ic.tpa.smartpet.dao.controle;
  *
  * @author leonardo
  */
+import br.uff.ic.tpa.smartpet.annotation.ContaLista;
 import br.uff.ic.tpa.smartpet.annotation.RecuperaConjunto;
 import br.uff.ic.tpa.smartpet.annotation.RecuperaLista;
 import br.uff.ic.tpa.smartpet.annotation.RecuperaObjeto;
@@ -58,6 +59,9 @@ public class InterceptadorDeDAO implements MethodInterceptor {
         } else if (metodo.isAnnotationPresent(RecuperaPagina.class)) {
             // O método buscaPagina() retorna um List
             return daoGenerico.buscaPagina(metodo, args);
+        } else if (metodo.isAnnotationPresent(ContaLista.class)) {
+            // O método buscaListaCount() retorna um Long
+            return daoGenerico.buscaListaCount(metodo, args);
         } else if (metodo.isAnnotationPresent(RecuperaConjunto.class)) {
             // O método buscaConjunto() retorna um Set
             return daoGenerico.buscaConjunto(metodo, args);
