@@ -19,7 +19,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Main {
 
-    public static void _main(String[] args) {
+    public static void main(String[] args) {
         FramePrincipal principal = new FramePrincipal();
         principal.setFocusableWindowState(true);
         principal.setVisible(true);
@@ -28,7 +28,7 @@ public class Main {
 //            System.out.println("teste");
     }
 
-    public static void main(String[] args) {
+    public static void _main(String[] args) {
         ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
         ConsultaAppService consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");
