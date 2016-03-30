@@ -18,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @author leonardo
  */
 public class VeterinarioAppService {
-    
+
     private VeterinarioDAO veterinarioDAO = null;
 
     @Autowired
     public void setVeterinarioDAO(VeterinarioDAO veterinarioDAO) {
         this.veterinarioDAO = veterinarioDAO;
-        
+
     }
 
     public Integer inclui(Veterinario veterinario) {
@@ -64,4 +64,9 @@ public class VeterinarioAppService {
     public List<Veterinario> recuperaVeterinarios() {
         return veterinarioDAO.recuperaListaDeVeterinarios();
     }
+
+    public List<Veterinario> recuperaPaginaDeVeterinarios(Integer startPosition, Integer length) {
+        return veterinarioDAO.recuperaPaginaDeVeterinarios(startPosition, length);
+    }
+
 }

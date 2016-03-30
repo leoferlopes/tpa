@@ -58,8 +58,13 @@ public class EspecieAppService {
         }
 
     }
-    
-    public List<Especie> recuperaEspecies(){
+
+    public List<Especie> recuperaEspecies() {
         return especieDAO.recuperaListaDeEspecies();
     }
+
+    public List<Especie> recuperaPaginaDeEspecies(Integer startPosition, Integer length) {
+        return especieDAO.recuperaPaginaDeEspecies(startPosition, length);
+    }
+
 }

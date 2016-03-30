@@ -6,10 +6,8 @@
 package br.uff.ic.tpa.smartpet.dao;
 
 import br.uff.ic.tpa.smartpet.annotation.RecuperaLista;
-import br.uff.ic.tpa.smartpet.annotation.RecuperaUltimoOuPrimeiro;
-import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
+import br.uff.ic.tpa.smartpet.annotation.RecuperaPagina;
 import br.uff.ic.tpa.smartpet.model.Consulta;
-import br.uff.ic.tpa.smartpet.model.Paciente;
 import java.util.List;
 
 /**
@@ -20,5 +18,8 @@ public interface ConsultaDAO extends DaoGenerico<Consulta, Integer> {
 
     @RecuperaLista
     List<Consulta> recuperaListaDeConsultas();
+
+    @RecuperaPagina
+    List<Consulta> recuperaPaginaDeConsultas(Integer startPosition, Integer length);
 
 }

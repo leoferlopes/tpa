@@ -6,6 +6,7 @@
 package br.uff.ic.tpa.smartpet.dao;
 
 import br.uff.ic.tpa.smartpet.annotation.RecuperaLista;
+import br.uff.ic.tpa.smartpet.annotation.RecuperaPagina;
 import br.uff.ic.tpa.smartpet.model.Especie;
 import java.util.List;
 
@@ -17,5 +18,8 @@ public interface EspecieDAO extends DaoGenerico<Especie, Integer> {
 
     @RecuperaLista
     List<Especie> recuperaListaDeEspecies();
+
+    @RecuperaPagina
+    List<Especie> recuperaPaginaDeEspecies(Integer startPosition, Integer length);
 
 }

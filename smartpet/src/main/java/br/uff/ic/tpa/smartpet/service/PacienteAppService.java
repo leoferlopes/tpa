@@ -63,4 +63,8 @@ public class PacienteAppService {
         return pacienteDAO.recuperaListaDePacientes();
     }
 
+    public List<Paciente> recuperaPaginaDePacientes(Integer startPosition, Integer length) {
+        return pacienteDAO.recuperaPaginaDePacientes(startPosition, length);
+    }
+
 }

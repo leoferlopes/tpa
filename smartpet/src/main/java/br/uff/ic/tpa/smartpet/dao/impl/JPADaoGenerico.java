@@ -167,6 +167,36 @@ public class JPADaoGenerico<T, PK> implements DaoGenerico<T, PK> {
     }
 
     @SuppressWarnings("unchecked")
+    public final List<T> buscaPagina(Method metodo,
+            Object[] argumentos) {
+        try {
+            String nomeDaBusca = getNomeDaBuscaPeloMetodo(metodo);
+
+            Integer startPosition, length;
+            if (argumentos[0] instanceof Integer && argumentos[1] instanceof Integer) {
+                startPosition = (Integer) argumentos[0];
+                length = (Integer) argumentos[1];
+            } else {
+                throw new NumberFormatException("Os parâmetros startPosition e length precisam ser do tipo inteiro");
+            }
+
+            Query namedQuery = em.createNamedQuery(nomeDaBusca)
+                    .setFirstResult(startPosition)
+                    .setMaxResults(length);
+
+            if (argumentos != null) {
+                for (int i = 2; i < argumentos.length; i++) {
+                    Object arg = argumentos[i];
+                    namedQuery.setParameter(i - 1, arg); // Parâmetros de buscas são 1-based.
+                }
+            }
+            return (List<T>) namedQuery.getResultList();
+        } catch (RuntimeException e) {
+            throw new InfraestruturaException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public final Set<T> buscaConjunto(Method metodo,
             Object[] argumentos) {
         try {
@@ -191,4 +221,14 @@ public class JPADaoGenerico<T, PK> implements DaoGenerico<T, PK> {
     private String getNomeDaBuscaPeloMetodo(Method metodo) {
         return tipo.getSimpleName() + "." + metodo.getName();
     }
+
+//    public final List<T> getPagina(Number inicio, Number tamanho) {
+//        List<T> pagina = new ArrayList<>();
+//        try {
+//            
+//        } catch (RuntimeException e) {
+//
+//        }
+//        return pagina;
+//    }
 }

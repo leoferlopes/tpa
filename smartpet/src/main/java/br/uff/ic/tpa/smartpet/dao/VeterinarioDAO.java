@@ -6,6 +6,7 @@
 package br.uff.ic.tpa.smartpet.dao;
 
 import br.uff.ic.tpa.smartpet.annotation.RecuperaLista;
+import br.uff.ic.tpa.smartpet.annotation.RecuperaPagina;
 import br.uff.ic.tpa.smartpet.model.Veterinario;
 import java.util.List;
 
@@ -17,5 +18,8 @@ public interface VeterinarioDAO extends DaoGenerico<Veterinario, Integer> {
 
     @RecuperaLista
     List<Veterinario> recuperaListaDeVeterinarios();
+
+    @RecuperaPagina
+    List<Veterinario> recuperaPaginaDeVeterinarios(Integer startPosition, Integer length);
 
 }

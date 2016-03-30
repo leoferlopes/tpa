@@ -62,4 +62,8 @@ public class ConsultaAppService {
     public List<Consulta> recuperaConsultas() {
         return consultaDAO.recuperaListaDeConsultas();
     }
+
+    public List<Consulta> recuperaPaginaDeConsultas(Integer startPosition, Integer length) {
+        return consultaDAO.recuperaPaginaDeConsultas(startPosition, length);
+    }
 }

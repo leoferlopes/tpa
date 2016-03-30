@@ -1,8 +1,7 @@
 package br.uff.ic.tpa.smartpet;
 
-import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
 import br.uff.ic.tpa.smartpet.form.*;
-import br.uff.ic.tpa.smartpet.model.Consulta;
+import br.uff.ic.tpa.smartpet.model.*;
 import br.uff.ic.tpa.smartpet.service.*;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -36,6 +35,7 @@ public class Main {
         EspecieAppService especieAppService = (EspecieAppService) fabrica.getBean("especieAppService");
         PacienteAppService pacienteAppService = (PacienteAppService) fabrica.getBean("pacienteAppService");
         VeterinarioAppService veterinarioAppService = (VeterinarioAppService) fabrica.getBean("veterinarioAppService");
+
         Gson gson = new GsonBuilder()
                 .setExclusionStrategies(new ExclusionStrategy() {
                     @Override
@@ -51,16 +51,13 @@ public class Main {
                 .serializeNulls()
                 .create();
         try {
-            //List<Consulta> consultas = consultaAppService.recuperaConsultas();
-            //String json = gson.toJson(consultas.get(0));
-            //System.out.println(json);
-            pacienteAppService.exclui(pacienteAppService.recupera(2));
-            //consultaAppService.exclui(consultaAppService.recupera(1));
-            //json = gson.toJson(c);
-            //System.out.println(json);
-        } catch (ObjetoNaoEncontradoException e) {
+            List<Dono> list = donoAppService.recuperaPaginaDeDonos(1, 2);
+            String json = gson.toJson(list);
+            System.out.println(json);
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            System.exit(0);
         }
-        System.exit(0);
     }
 }

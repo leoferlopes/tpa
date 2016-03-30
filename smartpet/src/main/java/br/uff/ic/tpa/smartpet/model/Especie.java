@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Especie.recuperaListaDeEspecies", query = "SELECT e FROM Especie e"),
+    @NamedQuery(name = "Especie.recuperaPaginaDeEspecies", query = "SELECT e FROM Especie e"),
     @NamedQuery(name = "Especie.findByIdEspecie", query = "SELECT e FROM Especie e WHERE e.idEspecie = :idEspecie"),
     @NamedQuery(name = "Especie.findByNome", query = "SELECT e FROM Especie e WHERE e.nome = :nome")})
 public class Especie implements Serializable {

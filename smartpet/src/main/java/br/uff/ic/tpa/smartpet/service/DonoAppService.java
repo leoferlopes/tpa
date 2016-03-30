@@ -8,6 +8,7 @@ package br.uff.ic.tpa.smartpet.service;
 import br.uff.ic.tpa.smartpet.dao.DonoDAO;
 import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
 import br.uff.ic.tpa.smartpet.model.Dono;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,4 +59,11 @@ public class DonoAppService {
 
     }
 
+    public List<Dono> recuperaDonos() {
+        return donoDAO.recuperaListaDeDonos();
+    }
+
+    public List<Dono> recuperaPaginaDeDonos(Integer startPosition, Integer length) {
+        return donoDAO.recuperaPaginaDeDonos(startPosition, length);
+    }
 }

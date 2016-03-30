@@ -12,6 +12,7 @@ package br.uff.ic.tpa.smartpet.dao;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
+import java.util.List;
 
 /**
  * A interface GenericDao básica com os métodos CRUD. Os métodos de busca são
@@ -31,4 +32,6 @@ public interface DaoGenerico<T, PK> {
     T getPorId(PK id) throws ObjetoNaoEncontradoException;
 
     T getPorIdComLock(PK id) throws ObjetoNaoEncontradoException;
+
+    //List<T> getPagina(Number inicio, Number tamanho);
 }
