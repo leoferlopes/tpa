@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package br.uff.ic.tpa.smartpet.form;
-
-import java.awt.event.WindowEvent;
-import javax.swing.JPanel;
 /**
  *
  * @author Murilo
@@ -33,13 +30,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -56,18 +53,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jMenu3.setText("Consultas");
+        jMenu3.setText("Exibir");
 
-        jMenuItem3.setText("Mostrar Consultas Agendadas");
-        jMenuItem3.setBorder(null);
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuItem6.setLabel("Editar Consultas");
+        jMenuItem6.setText("Exibir");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -111,6 +99,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem7);
 
+        jMenuItem3.setText("Criar Consulta");
+        jMenu4.add(jMenuItem3);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -128,22 +119,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        FrameExibeConsulta frame = new FrameExibeConsulta();
-        frame.setPai(this);
-        frame.setLocation(this.getX() + 10,this.getY() + 10);
-        frame.setVisible(true);
-        this.setEnabled(false);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        FrameEditarConsulta frame = new FrameEditarConsulta();
-        frame.setPai(this);
-        frame.setLocation(this.getX() + 10,this.getY() + 10);
-        frame.setVisible(true);
-        this.setEnabled(false);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         FrameAdcVeterinario frame = new FrameAdcVeterinario();
@@ -176,6 +151,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        DialogExibe dialog = new DialogExibe(this);
+        dialog.setLocation(this.getX()+10, this.getY() + 10);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
