@@ -35,8 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Dono.recuperaListaDeDonos", query = "SELECT d FROM Dono d"),
     @NamedQuery(name = "Dono.recuperaPaginaDeDonos", query = "SELECT d FROM Dono d"),
+    @NamedQuery(name = "Dono.contaListaDeDonos", query = "SELECT COUNT(d.idDono) FROM Dono d"),
+    @NamedQuery(name = "Dono.contaListaDeDonosPorNome", query = "SELECT COUNT(d.idDono) FROM Dono d WHERE d.nome LIKE ?1"),
+    @NamedQuery(name = "Dono.recuperaListaDeDonosPorNome", query = "SELECT d FROM Dono d WHERE d.nome LIKE ?1"),
+    @NamedQuery(name = "Dono.recuperaPaginaDeDonosPorNome", query = "SELECT d FROM Dono d WHERE d.nome LIKE ?1"),
     @NamedQuery(name = "Dono.findByIdDono", query = "SELECT d FROM Dono d WHERE d.idDono = :idDono"),
-    @NamedQuery(name = "Dono.findByNome", query = "SELECT d FROM Dono d WHERE d.nome = :nome"),
     @NamedQuery(name = "Dono.findByTelefone", query = "SELECT d FROM Dono d WHERE d.telefone = :telefone"),
     @NamedQuery(name = "Dono.findByEmail", query = "SELECT d FROM Dono d WHERE d.email = :email"),
     @NamedQuery(name = "Dono.findByDataNascimento", query = "SELECT d FROM Dono d WHERE d.dataNascimento = :dataNascimento"),

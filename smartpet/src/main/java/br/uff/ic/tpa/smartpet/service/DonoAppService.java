@@ -5,6 +5,9 @@
  */
 package br.uff.ic.tpa.smartpet.service;
 
+import br.uff.ic.tpa.smartpet.annotation.ContaLista;
+import br.uff.ic.tpa.smartpet.annotation.RecuperaLista;
+import br.uff.ic.tpa.smartpet.annotation.RecuperaPagina;
 import br.uff.ic.tpa.smartpet.dao.DonoDAO;
 import br.uff.ic.tpa.smartpet.excecao.ObjetoNaoEncontradoException;
 import br.uff.ic.tpa.smartpet.model.Dono;
@@ -66,4 +69,21 @@ public class DonoAppService {
     public List<Dono> recuperaPaginaDeDonos(Integer startPosition, Integer length) {
         return donoDAO.recuperaPaginaDeDonos(startPosition, length);
     }
+
+    public Long contaListaDeDonos() {
+        return donoDAO.contaListaDeDonos();
+    }
+
+    public List<Dono> recuperaListaDeDonosPorNome(String nome) {
+        return donoDAO.recuperaListaDeDonosPorNome("%" + nome + "%");
+    }
+
+    public List<Dono> recuperaPaginaDeDonosPorNome(Integer startPosition, Integer length, String nome) {
+        return donoDAO.recuperaPaginaDeDonosPorNome(startPosition, length, "%" + nome + "%");
+    }
+
+    public Long contaListaDeDonosPorNome(String nome) {
+        return donoDAO.contaListaDeDonosPorNome("%" + nome + "%");
+    }
+
 }

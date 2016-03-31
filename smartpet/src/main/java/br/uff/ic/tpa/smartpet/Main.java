@@ -18,16 +18,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Main {
 
-    public static void _main(String[] args) {
+    public static void main(String[] args) {
         FramePrincipal principal = new FramePrincipal();
         principal.setFocusableWindowState(true);
         principal.setVisible(true);
-
-//        while(true)
-//            System.out.println("teste");
     }
 
-    public static void main(String[] args) {
+    public static void _main(String[] args) {
         ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
         ConsultaAppService consultaAppService = (ConsultaAppService) fabrica.getBean("consultaAppService");
@@ -51,14 +48,17 @@ public class Main {
                 .serializeNulls()
                 .create();
         try {
-            List<Consulta> list = consultaAppService.recuperaPaginaDeConsultas(2, 6);
-            String json = gson.toJson(list);
-            System.out.println(json);
-            System.out.println("count: " + consultaAppService.contaListaDeConsultas());
+            List<Dono> list = donoAppService.recuperaDonos();
+            System.out.println(gson.toJson(list));
+            System.out.println("count: " + donoAppService.contaListaDeDonos());
+
+            list = donoAppService.recuperaPaginaDeDonosPorNome(0, 1, "s");
+            System.out.println(gson.toJson(list));
+            System.out.println("count: " + donoAppService.contaListaDeDonosPorNome("s"));
+            System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            System.exit(0);
+            System.exit(1);
         }
     }
 }
